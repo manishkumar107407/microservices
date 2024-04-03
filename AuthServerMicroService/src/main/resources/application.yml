@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: AuthServerMicroService
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/customerservice
+    username: root
+    password: root
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+     
+server:
+  port: 8083
+  
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7000/eureka
+    
+    
+    

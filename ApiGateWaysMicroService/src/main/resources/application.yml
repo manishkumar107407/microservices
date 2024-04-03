@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: ApiGateWaysMicroService
+  
+  cloud:
+    gateway:
+        routes:
+        - id: CUSTOMERMICROSERVICE
+          uri: lb://CUSTOMERMICROSERVICE
+          predicates:
+           - Path=/api/customer/**
+          filters:
+          - JwtAuthFilter
+          
+        - id: ORDERMICROSERVICE
+          uri: lb://ORDERMICROSERVICE
+          predicates:
+           - Path=/api/order/**
+          filters:
+          - JwtAuthFilter
+          
+        - id: AUTHSERVERMICROSERVICE
+          uri: lb://AUTHSERVERMICROSERVICE
+          predicates:
+           - Path=/auth/**
+   
+              
+server:
+  port: 9000
+   
+  
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7000/eureka
+    
+    
+    

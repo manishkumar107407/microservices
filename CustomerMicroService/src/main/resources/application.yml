@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: CustomerMicroService
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/customerservice
+    username: root
+    password: root
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+     
+server:
+  port: 8081
+  
+     
+management:
+   health:
+      circuitbreakers: 
+       enabled: true
+   endpoints:
+    web:
+      exposure:
+        include: "*"
+        
+   endpoint:
+      health:
+         show-details: always
+         
+
+resilience4j:
+ circuitbreaker:
+    instances:
+        findDep:
+            registerHealthIndicator: true
+            eventConsumerBufferSize: 10
+            failureRateThreshold: 50
+            minimumNumberOfCalls: 5
+            automaticTransitionFromOpenToHalfOpenEnabled: true
+            waitDurationInOpenState: 5s
+            permittedNumberOfCallsInHalfOpenState: 3
+            maxWaitDurationInHalfOpenState: 95s
+            slidingWindowSize: 10
+            slidingWindowType: COUNT_BASED
+            
+# retry:
+#    instances:
+#      myretry:
+#        max-attempts: 5
+#        wait-duration: 10s   
+#        
+#        
+# ratelimiter:
+#    instances:
+#      ratelime:
+#       limitForPeriod: 3
+#       limitRefreshPeriod: 5s
+#       timeoutDuration: 10s   
+  
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7000/eureka
+    
+    
+    
