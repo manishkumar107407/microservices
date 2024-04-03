@@ -1,0 +1,19 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: RestFullApi
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: root
+    url: jdbc:postgresql://localhost:5432/RESTAPIUSER
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  main:
+    allow-circular-references: true
