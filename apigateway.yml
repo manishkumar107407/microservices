@@ -1,0 +1,40 @@
+server:
+  port: 9595
+
+spring:
+  application:
+    name: ApiGateway
+
+
+  cloud:
+    gateway:
+      routes:
+        - id: CUSTOMERSERVICE
+          uri: lb://CUSTOMERSERVICE
+          predicates:
+            - Path=/customer/**
+
+
+        - id: ORDERSERVICE
+          uri: lb://ORDERSERVICE
+          predicates:
+            - Path=/order/**
+
+        - id: PRODUCTSERVICE
+          uri: lb://PRODUCTSERVICE
+          predicates:
+            - Path=/product/**
+
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:9090/eureka
+
+
